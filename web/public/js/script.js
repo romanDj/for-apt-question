@@ -1,7 +1,7 @@
 Vue.component('pie-chart', {
     extends: VueChartJs.Pie,
     props: ['labels', 'background-color', 'data'],
-    mounted () {
+    mounted() {
         this.renderChart({
             labels: this.labels,
             datasets: [
@@ -16,7 +16,7 @@ Vue.component('pie-chart', {
 
 Vue.component('bar-chart', {
     extends: VueChartJs.Bar,
-    mounted () {
+    mounted() {
         this.renderChart({
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -37,8 +37,8 @@ var app = new Vue({
             dataentry: null,
             datalabel: null,
             labels: ['Да', 'Нет'],
-            dataset: [ 45, 55],
-            color: [ '#ffbb33', '#00C851', '#ff4444', '#33b5e5', '#aa66cc', '#2BBBAD', '#d32f2f']
+            dataset: [45, 55],
+            color: ['#ffbb33', '#00C851', '#ff4444', '#33b5e5', '#aa66cc', '#2BBBAD', '#d32f2f']
         };
     },
 
@@ -49,5 +49,40 @@ var app = new Vue({
             this.datalabel = '';
             this.dataentry = '';
         }
+    },
+    created() {
+        let inp = "aaaAAcDDrR";
+        let curSymbol = '';
+        let count = 0;
+        let outp = '';
+
+        while (inp.length !== 0) {
+
+
+            if (curSymbol === '') {
+                //в начале выбирается первый символ
+                curSymbol = inp[0];
+                count++;
+            } else {
+                if (curSymbol === inp[0]) {
+                    count++;
+                } else {
+                    console.log( 'В массиве - ' + inp[0] + ' Выбранный ' + curSymbol);
+                    if (count === 1) {
+                        outp += curSymbol;
+                    } else {
+                        outp += curSymbol + count;
+                    }
+                    count = 1;
+                    curSymbol = inp[0];
+                }
+            }
+
+            inp = inp.slice(1);
+
+
+        }
+        console.log(outp);
+
     }
 });

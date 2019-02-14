@@ -38,7 +38,14 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Ключи страниц', 'url' => ['/admin/quiz']],
+            ['label' => 'Ответы', 'url' => ['/admin/answer']],
+            ['label' => 'Ответы конт.', 'url' => ['/admin/answer-content']],
+            ['label' => 'Участники', 'url' => ['/admin/participant']],
+            ['label' => 'Вид приктики', 'url' => ['/admin/practice']],
+            ['label' => 'Вопросы', 'url' => ['/admin/question']],
+            ['label' => 'Результаты', 'url' => ['/admin/result']],
+            ['label' => 'Специальности', 'url' => ['/admin/specialty']],
+            ['label' => 'Тесты', 'url' => ['/admin/test']],
             Yii::$app->user->isGuest ? (
             ['label' => 'Авторизация', 'url' => ['/auth']]
             ) : (
