@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\models\Specialty;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Module;
@@ -14,11 +15,14 @@ class ModuleSearch extends Module
     /**
      * {@inheritdoc}
      */
+
+    public $specialty;
+
     public function rules()
     {
         return [
             [['id', 'id_specialty'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'specialty'], 'safe'],
         ];
     }
 
@@ -40,13 +44,21 @@ class ModuleSearch extends Module
      */
     public function search($params)
     {
-        $query = Module::find();
+        $query = Module::find()->where(['id_specialty' => $params["id"]]);
+        $query->joinWith(['specialty']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+
+        $dataProvider->sort->attributes['specialty'] = [
+            'asc' => [Specialty::tableName().'.name' => SORT_ASC],
+            'desc' => [Specialty::tableName().'.name' => SORT_DESC],
+        ];
+
 
         $this->load($params);
 
@@ -58,11 +70,11 @@ class ModuleSearch extends Module
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'id_specialty' => $this->id_specialty,
+            'id_specialty' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', Specialty::tableName().'.name', $this->specialty]);
 
         return $dataProvider;
     }

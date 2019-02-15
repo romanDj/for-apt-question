@@ -44,8 +44,9 @@ class Module extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'id_specialty' => 'Id Specialty',
+            'specialty' => 'Специальность'
         ];
     }
 

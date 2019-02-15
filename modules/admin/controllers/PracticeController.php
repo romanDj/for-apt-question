@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Test;
 use Yii;
 use app\models\Practice;
 use app\modules\admin\models\PracticeSearch;
@@ -108,6 +109,37 @@ class PracticeController extends Controller
 
         return $this->redirect(['index']);
     }
+
+
+    public function actionCheckQuestion($id){
+        $checkList = Test::find()->where(['id_practice' => $id])->all();
+        $checkId = [];
+
+        foreach ($checkList as $item){
+            $checkId[] = $item->id_question;
+        }
+
+        if(Yii::$app->request->post()){
+            Test::deleteAll(['id_practice' => $id]);
+
+            foreach (Yii::$app->request->post('questions') as $item){
+                $tst = new Test();
+                $tst->id_practice = $id;
+                $tst->id_question = $item;
+                $tst->save();
+            }
+
+            return $this->redirect(['view', 'id' => $id]);
+
+        }
+        else{
+            return $this->render('formquestion', [
+                'id' => $id,
+                'checkedList' => $checkId
+            ]);
+        }
+    }
+
 
     /**
      * Finds the Practice model based on its primary key value.

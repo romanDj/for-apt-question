@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\modules\admin\Module;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Practice;
@@ -14,11 +15,14 @@ class PracticeSearch extends Practice
     /**
      * {@inheritdoc}
      */
+
+    public $module;
+
     public function rules()
     {
         return [
             [['id', 'id_module'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'module' ], 'safe'],
         ];
     }
 
@@ -41,12 +45,18 @@ class PracticeSearch extends Practice
     public function search($params)
     {
         $query = Practice::find();
+        $query->joinWith(['module']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['module'] = [
+            'asc' => [\app\models\Module::tableName().'.name' => SORT_ASC],
+            'desc' => [\app\models\Module::tableName().'.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -62,7 +72,8 @@ class PracticeSearch extends Practice
             'id_module' => $this->id_module,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', \app\models\Module::tableName().'.name', $this->module]);
 
         return $dataProvider;
     }

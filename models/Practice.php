@@ -45,8 +45,9 @@ class Practice extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'id_module' => 'Id Module',
+            'module' => 'Проф. модуль'
         ];
     }
 

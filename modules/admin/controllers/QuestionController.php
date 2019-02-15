@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Answer;
+use app\models\AnswerContent;
 use Yii;
 use app\models\Question;
 use app\modules\admin\models\QuestionSearch;
@@ -109,6 +111,40 @@ class QuestionController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionCheckAnswer($id)
+    {
+        $checkList = Answer::find()->where(['id_question' => $id])->all();
+        $checkId = [];
+
+        foreach ($checkList as $item){
+            $checkId[] = $item->id_answer_content;
+        }
+
+        if(Yii::$app->request->post()){
+            Answer::deleteAll(['id_question' => $id]);
+
+            foreach (Yii::$app->request->post('answers') as $item){
+               $ans = new Answer();
+               $ans->id_question = $id;
+               $ans->id_answer_content = $item;
+               $ans->save();
+            }
+
+            return $this->redirect(['view', 'id' => $id]);
+
+        }
+        else{
+            return $this->render('formanswer', [
+                'id' => $id,
+                'checkedList' => $checkId
+            ]);
+        }
+
+
+
+    }
+
     /**
      * Finds the Question model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -124,4 +160,6 @@ class QuestionController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

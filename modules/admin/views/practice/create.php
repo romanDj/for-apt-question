@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Practice */
 
-$this->title = 'Create Practice';
-$this->params['breadcrumbs'][] = ['label' => 'Practices', 'url' => ['index']];
+$this->title = 'Добавить вид практики';
+$this->params['breadcrumbs'][] = ['label' => 'Вид практики', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="practice-create">

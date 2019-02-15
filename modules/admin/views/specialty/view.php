@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $model app\models\Specialty */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Specialties', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Специальности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -33,6 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
         ],
+    ]) ?>
+
+
+    <?= $this->render('/module/index', [
+        'model' => $model->modules,
+
+        'dataProvider' => $dataProvider
     ]) ?>
 
 </div>

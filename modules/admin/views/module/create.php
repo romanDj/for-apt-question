@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Module */
 
 $this->title = 'Create Module';
-$this->params['breadcrumbs'][] = ['label' => 'Modules', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Модули', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="module-create">
