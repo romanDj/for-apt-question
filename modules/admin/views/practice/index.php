@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\admin\models\PracticeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Вид практики';
+$this->title = 'Тесты по практике';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="practice-index">

@@ -6,9 +6,12 @@ use yii\helpers\Html;
 /* @var $model app\models\Module */
 
 $this->title = 'Изменить модуль: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Проф. модули', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Специальности', 'url' => ['specialty/index']];
+$this->params['breadcrumbs'][] = ['label' => \app\models\Specialty::findOne(['id'=>$model->id_specialty])->name, 'url' => ['specialty/view?id='.$model->id_specialty]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['specialty/'.$model->id_specialty.'/module/view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Изменить';
+
+
 ?>
 <div class="module-update">
 

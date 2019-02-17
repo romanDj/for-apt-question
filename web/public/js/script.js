@@ -10,7 +10,18 @@ Vue.component('pie-chart', {
                     data: this.data
                 }
             ]
-        }, {responsive: true, maintainAspectRatio: false})
+        }, {
+            responsive: true,
+            maintainAspectRatio: false,
+            pieceLabel: {
+                render: 'percentage',
+                precision: 1,
+                fontColor: 'white',
+                fontSize: 15
+            },
+            showAllTooltips: true,
+
+        })
     }
 });
 
@@ -30,6 +41,32 @@ Vue.component('bar-chart', {
     }
 });
 
+
+Vue.component('print-list', {
+    props: ['report'],
+    data(){
+        return {
+            color: ['#ffbb33', '#00C851', '#ff4444', '#33b5e5', '#aa66cc', '#2BBBAD', '#d32f2f'],
+        }
+    },
+    template: `<div id="lol"  class="mt-3 mb-3">
+                    <ol class="text-left">
+                        <li class="mb-2" v-for="item in report"><label>{{item.content}}</label>
+                            <template v-if="item.answer">
+                             <pie-chart style="max-height: 250px" :data="item.answer.procent" :labels="item.answer.labels" :background-color="color"></pie-chart>
+                            </template>   
+                            <template v-else>
+                                <p>Топ 5 последних:</p>
+                               <div class="alert alert-info" v-for="ds in item.description" role="alert">
+                                  {{ds}}
+                               </div>
+                            </template>                        
+                           
+                        </li>
+                    </ol>
+               </div>`
+});
+
 var app = new Vue({
     el: '#app',
     data: function data() {
@@ -38,7 +75,7 @@ var app = new Vue({
             datalabel: null,
             labels: ['Да', 'Нет'],
             dataset: [45, 55],
-            color: ['#ffbb33', '#00C851', '#ff4444', '#33b5e5', '#aa66cc', '#2BBBAD', '#d32f2f']
+            report: reportAnswer
         };
     },
 
@@ -48,6 +85,9 @@ var app = new Vue({
             this.labels.push(this.datalabel);
             this.datalabel = '';
             this.dataentry = '';
+        },
+        printDoc() {
+            window.print();
         }
     },
     created() {
@@ -67,7 +107,7 @@ var app = new Vue({
                 if (curSymbol === inp[0]) {
                     count++;
                 } else {
-                    console.log( 'В массиве - ' + inp[0] + ' Выбранный ' + curSymbol);
+                    console.log('В массиве - ' + inp[0] + ' Выбранный ' + curSymbol);
                     if (count === 1) {
                         outp += curSymbol;
                     } else {

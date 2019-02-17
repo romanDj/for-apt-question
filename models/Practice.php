@@ -74,4 +74,6 @@ class Practice extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Test::className(), ['id_practice' => 'id']);
     }
+
+
 }

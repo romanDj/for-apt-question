@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $content
+ * @property int $multi
  *
  * @property Answer[] $answers
  * @property Result[] $results
@@ -30,6 +31,8 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['multi'], 'boolean' ],
+            [['multi'], 'default', 'value' => 0 ],
             [['content'], 'required'],
             [['content'], 'string', 'max' => 2000],
         ];
@@ -43,6 +46,7 @@ class Question extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'content' => 'Текст',
+            'multi' => 'Выбор нескольких ответов'
         ];
     }
 

@@ -30,14 +30,18 @@ class Result extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $countQuestion;
+    public $countAnswer;
+
     public function rules()
     {
         return [
             [['id_participant', 'id_question'], 'required'],
-            [['id_participant', 'id_question', 'id_answer', 'desccription'], 'integer'],
+            [['id_participant', 'id_question', 'id_answer'], 'integer'],
+            [['desccription'], 'string'],
             [['id_participant'], 'exist', 'skipOnError' => true, 'targetClass' => Participant::className(), 'targetAttribute' => ['id_participant' => 'id']],
             [['id_question'], 'exist', 'skipOnError' => true, 'targetClass' => Question::className(), 'targetAttribute' => ['id_question' => 'id']],
-            [['id_answer'], 'exist', 'skipOnError' => true, 'targetClass' => Answer::className(), 'targetAttribute' => ['id_answer' => 'id']],
         ];
     }
 
@@ -74,8 +78,8 @@ class Result extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswer()
+    public function getAnswerContent()
     {
-        return $this->hasOne(Answer::className(), ['id' => 'id_answer']);
+        return $this->hasOne(AnswerContent::className(), ['id' => 'id_answer']);
     }
 }

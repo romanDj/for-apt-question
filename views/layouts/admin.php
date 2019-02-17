@@ -15,7 +15,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="ru">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,8 +48,7 @@ AppAsset::register($this);
             ['label' => 'Результаты', 'url' => ['/admin/result']],
             ['label' => 'Поля для выбора', 'items' => [
                 ['label' => 'Специальности', 'url' => ['/admin/specialty']],
-                ['label' => 'Модули', 'url' => ['/admin/module']],
-                ['label' => 'Вид приктики', 'url' => ['/admin/practice']],
+                ['label' => 'Тесты по практике', 'url' => ['/admin/practice']],
             ]],
 
             Yii::$app->user->isGuest ? (

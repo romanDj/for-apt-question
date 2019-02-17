@@ -30,7 +30,7 @@ class Module extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_specialty'], 'required'],
+            [['name'], 'required'],
             [['id_specialty'], 'integer'],
             [['name'], 'string', 'max' => 500],
             [['id_specialty'], 'exist', 'skipOnError' => true, 'targetClass' => Specialty::className(), 'targetAttribute' => ['id_specialty' => 'id']],

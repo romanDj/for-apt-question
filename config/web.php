@@ -51,6 +51,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'auth' => 'auth/login',
+                'POST,GET admin/specialty/<id_specialty:\d+>/module/create' => 'admin/module/create',
+                'POST,GET admin/specialty/<id_specialty:\d+>/module/update' => 'admin/module/update',
+                'GET admin/specialty/<id_specialty:\d+>/module/view' => 'admin/module/view',
+                'POST admin/specialty/<id_specialty:\d+>/module/delete' => 'admin/module/delete',
             ],
         ],
 

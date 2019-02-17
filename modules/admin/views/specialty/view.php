@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('/module/index', [
         'model' => $model->modules,
-
+        'id' => $model->id,
         'dataProvider' => $dataProvider
     ]) ?>
 

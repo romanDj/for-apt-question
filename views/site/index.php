@@ -1,36 +1,44 @@
-<div class="card">
-    <div class="card-body">
-        <form class="p-2 text-left">
+<script>
+    var listSp = <?= $listSp ?>;
+    var listMd = <?= $listMd ?>;
+    var listPr = <?= $listPr ?>;
+</script>
+<div id="app" class="card">
+    <transition name="fade" appear>
+        <div class="card-body">
 
-            <p class="h5 mb-4">Выберите специальность, модуль и вид практики</p>
+            <form class="p-2 text-left">
 
-            <label>Специальность</label>
-            <select class="browser-default custom-select mb-4">
-                <option value="1">Информационные системы</option>
-                <option value="2">Автоматизация</option>
-                <option value="3">Бурение</option>
-                <option value="4">Бугалтера</option>
-            </select>
+                <p class="h5 mb-4">Выберите специальность, модуль и вид практики</p>
 
-            <label>Профессиональный модуль</label>
-            <select class="browser-default custom-select mb-4" disabled>
-                <option value="1">Веб-дизайн</option>
-                <option value="2">Программные решения</option>
-                <option value="3">1С-разработка</option>
-                <option value="4">Системное администрирование</option>
-            </select>
+                <label>Специальность</label>
+                <select v-model="selectSp" class="browser-default custom-select mb-4">
+                    <option value="" selected>--</option>
+                    <option :value="item.id"  v-for="item in sp">{{item.name}}</option>
+                </select>
 
-            <label>Вид практики</label>
-            <select class="browser-default custom-select mb-4">
-                <option value="1">Производственная</option>
-                <option value="2">Учебная</option>
-                <option value="3">Преддипломная</option>
-            </select>
+                <label>Профессиональный модуль</label>
+                <select v-model="selectMd" class="browser-default custom-select mb-4" :disabled="selectSp == '' ">
+                    <option value="" selected>--</option>
+                    <option :value="item.id" v-for="item in md">{{item.name}}</option>
+                </select>
+
+                <label>Вид практики</label>
+                <select v-model="selectPr"  class="browser-default custom-select mb-4" :disabled="selectMd == '' ">
+                    <option value="" selected>--</option>
+                    <option :value="item.id" v-for="item in pr">{{item.name}}</option>
+                </select>
 
 
-            <button class="btn btn-light-green btn-block" disabled type="submit">Пройти тест</button>
+                <button @click.prevent="start" class="btn btn-light-green btn-block" :disabled="selectSp == '' || selectMd == '' || selectPr == ''" type="submit">Пройти тест</button>
+                <button @click.prevent="report" class="btn mt-1 btn-info btn-block" :disabled="selectSp == '' || selectMd == '' || selectPr == ''" type="submit">Получить отчет</button>
 
-        </form>
-    </div>
+            </form>
+
+
+        </div>
+    </transition>
 
 </div>
+
+<script src="/public/js/selectTest.js"></script>

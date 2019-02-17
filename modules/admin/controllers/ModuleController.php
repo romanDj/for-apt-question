@@ -62,16 +62,24 @@ class ModuleController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_specialty)
     {
         $model = new Module();
+        $model->id_specialty  = $id_specialty;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if(Yii::$app->request->post()){
+            $model->load(Yii::$app->request->post());
+            if($model->save()){
+                return $this->redirect(['specialty/view', 'id' => $id_specialty]);
+            }
         }
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//
+//
+//        }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -87,7 +95,7 @@ class ModuleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['specialty/'.$model->id_specialty.'/module/view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -104,8 +112,10 @@ class ModuleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        $curr = $this->findModel($id);
+        $id_sp = $curr->id_specialty;
+        $curr->delete();
+        return $this->redirect(['specialty/view?id='.$id_sp]);
     }
 
     /**
